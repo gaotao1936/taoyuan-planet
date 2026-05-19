@@ -1,0 +1,187 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "userName": "山月陶舍",
+    "userAvatar": "https://picsum.photos/seed/avatar1/600/600",
+    "content": "新出窑的一批青花杯，这次尝试了更淡雅的蓝色，在传统纹样的基础上加入了一些现代几何元素。每一只杯子都经历了72道工序，从泥巴到成品，整整花了一个月的时间。分享给大家看看～",
+    "images": [
+      "https://picsum.photos/seed/post1a/600/600",
+      "https://picsum.photos/seed/post1b/600/600",
+      "https://picsum.photos/seed/post1c/600/600"
+    ],
+    "likes": 328,
+    "liked": false,
+    "collected": false,
+    "comments": [
+      {
+        "id": 1,
+        "userId": 108,
+        "userName": "爱喝茶的小明",
+        "content": "太好看了！请问可以定制吗？",
+        "createdAt": "2026-05-10 14:30"
+      },
+      {
+        "id": 2,
+        "userId": 1,
+        "userName": "山月陶舍",
+        "content": "可以的，可以私信沟通具体要求～",
+        "createdAt": "2026-05-10 15:00"
+      }
+    ],
+    "createdAt": "2026-05-10T10:00:00",
+    "tags": [
+      "陶瓷",
+      "手工",
+      "青花"
+    ],
+    "type": "原创分享"
+  },
+  {
+    "id": 2,
+    "userId": 13,
+    "userName": "光影行者",
+    "userAvatar": "https://picsum.photos/seed/avatar13/600/600",
+    "content": "这次去了黔东南的苗寨，清晨的薄雾笼罩着吊脚楼，真的太美了。拍了一组人文纪实，记录下村寨里手艺人的生活。非遗不只是博物馆里的展品，更是这些普通人每天的日常。",
+    "images": [
+      "https://picsum.photos/seed/post5a/600/600",
+      "https://picsum.photos/seed/post5b/600/600",
+      "https://picsum.photos/seed/post5c/600/600",
+      "https://picsum.photos/seed/post5d/600/600"
+    ],
+    "likes": 1567,
+    "liked": false,
+    "collected": false,
+    "comments": [
+      {
+        "id": 3,
+        "userId": 118,
+        "userName": "人文摄影控",
+        "content": "每一张都有故事感，请问是什么器材拍的？",
+        "createdAt": "2026-05-12 10:00"
+      },
+      {
+        "id": 4,
+        "userId": 13,
+        "userName": "光影行者",
+        "content": "用的索尼A7M4 + 24-70mm，主要是等光～",
+        "createdAt": "2026-05-12 10:30"
+      }
+    ],
+    "createdAt": "2026-05-12T08:00:00",
+    "tags": [
+      "摄影",
+      "人文",
+      "苗寨",
+      "非遗"
+    ],
+    "type": "原创分享"
+  },
+  {
+    "id": 3,
+    "userId": 3,
+    "userName": "纸间艺术",
+    "userAvatar": "https://picsum.photos/seed/avatar3/600/600",
+    "content": "上周在社区文化节做了一场剪纸体验活动，来了好多小朋友和大朋友！大家第一次尝试剪纸，虽然剪得歪歪扭扭，但每个人都特别开心。非遗的传承需要更多这样的机会，让更多人亲手感受传统文化的魅力。",
+    "images": [
+      "https://picsum.photos/seed/post2a/600/600",
+      "https://picsum.photos/seed/post2b/600/600"
+    ],
+    "likes": 567,
+    "liked": false,
+    "collected": false,
+    "comments": [],
+    "createdAt": "2026-05-08T16:00:00",
+    "tags": [
+      "剪纸",
+      "非遗",
+      "活动"
+    ],
+    "type": "创作日常"
+  },
+  {
+    "id": 4,
+    "userId": 5,
+    "userName": "瑾色手作",
+    "userAvatar": "https://picsum.photos/seed/avatar5/600/600",
+    "content": "新作分享——\"月白\"系列首饰。灵感来自月光下的湖面，选用了月光石和淡水珍珠为主要材料，整体色调清冷温柔。这个系列筹备了两个月，终于可以跟大家见面了！",
+    "images": [
+      "https://picsum.photos/seed/post3a/600/600",
+      "https://picsum.photos/seed/post3b/600/600",
+      "https://picsum.photos/seed/post3c/600/600",
+      "https://picsum.photos/seed/post3d/600/600"
+    ],
+    "likes": 892,
+    "liked": false,
+    "collected": false,
+    "comments": [
+      {
+        "id": 5,
+        "userId": 109,
+        "userName": "饰物语",
+        "content": "已下单月白耳钉，期待收货！",
+        "createdAt": "2026-05-05 09:15"
+      }
+    ],
+    "createdAt": "2026-05-05T08:00:00",
+    "tags": [
+      "首饰",
+      "设计",
+      "新品"
+    ],
+    "type": "原创分享"
+  },
+  {
+    "id": 5,
+    "userId": 6,
+    "userName": "木说工作室",
+    "userAvatar": "https://picsum.photos/seed/avatar6/600/600",
+    "content": "推荐一套我最近超爱的木雕工具！日本进口的雕刻刀五件套，钢材硬度刚好，握感舒适，细节处理非常到位。对于刚入门的木作爱好者来说，找一套趁手的工具真的太重要了。",
+    "images": [
+      "https://picsum.photos/seed/post4a/600/600"
+    ],
+    "likes": 234,
+    "liked": false,
+    "collected": false,
+    "comments": [],
+    "createdAt": "2026-05-01T12:00:00",
+    "tags": [
+      "木作",
+      "工具",
+      "教程"
+    ],
+    "type": "好物推荐"
+  },
+  {
+    "id": 6,
+    "userId": 8,
+    "userName": "吴门绣庄",
+    "userAvatar": "https://picsum.photos/seed/avatar8/600/600",
+    "content": "分享一幅刚完工的双面绣《荷塘月色》。正反两面都是完整的画面，看不到一丝线头。这幅绣了整整三个月，用了48种颜色的丝线。苏绣的魅力就在于针法的无穷变化，一针一线皆心血。",
+    "images": [
+      "https://picsum.photos/seed/post6a/600/600",
+      "https://picsum.photos/seed/post6b/600/600",
+      "https://picsum.photos/seed/post6c/600/600"
+    ],
+    "likes": 2341,
+    "liked": false,
+    "collected": false,
+    "comments": [
+      {
+        "id": 6,
+        "userId": 119,
+        "userName": "丝线情缘",
+        "content": "太震撼了！双面绣真的是一绝。",
+        "createdAt": "2026-05-14 20:00"
+      }
+    ],
+    "createdAt": "2026-05-14T18:00:00",
+    "tags": [
+      "刺绣",
+      "苏绣",
+      "非遗",
+      "手工艺"
+    ],
+    "type": "原创分享"
+  }
+]

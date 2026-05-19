@@ -1,0 +1,557 @@
+[
+  {
+    "id": 1,
+    "title": "青花手绘茶杯",
+    "description": "景德镇手工拉坯，传统青花工艺绘制，每只杯子纹样略有不同，独一无二。胎体轻薄通透，适合冲泡绿茶、白茶。",
+    "price": 168,
+    "originalPrice": 220,
+    "category": "陶瓷",
+    "categoryId": 1,
+    "icon": "🏺",
+    "creatorId": 1,
+    "creatorName": "山月陶舍",
+    "salesCount": 326,
+    "status": "approved",
+    "createdAt": "2025-12-01",
+    "stock": 50,
+    "tags": [
+      "陶瓷",
+      "手工",
+      "青花",
+      "茶具"
+    ],
+    "images": [
+      "https://picsum.photos/seed/ceramic1/600/600",
+      "https://picsum.photos/seed/ceramic2/600/600",
+      "https://picsum.photos/seed/ceramic3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "userId": 100,
+        "userName": "茶语人生",
+        "rating": 5,
+        "content": "非常精致，手感温润，喝茶的心情都变好了。",
+        "createdAt": "2026-01-15"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "苏绣团扇·蝶恋花",
+    "description": "苏州绣娘纯手工刺绣，双面绣工艺，蝴蝶与牡丹栩栩如生。紫檀木扇柄，配真丝流苏。",
+    "price": 388,
+    "originalPrice": 520,
+    "category": "刺绣",
+    "categoryId": 2,
+    "icon": "🪡",
+    "creatorId": 8,
+    "creatorName": "吴门绣庄",
+    "salesCount": 215,
+    "status": "approved",
+    "createdAt": "2025-11-20",
+    "stock": 12,
+    "tags": [
+      "刺绣",
+      "苏绣",
+      "团扇",
+      "非遗"
+    ],
+    "images": [
+      "https://picsum.photos/seed/embroider1/600/600",
+      "https://picsum.photos/seed/embroider2/600/600",
+      "https://picsum.photos/seed/embroider3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 2,
+        "userId": 110,
+        "userName": "江南好",
+        "rating": 5,
+        "content": "精美绝伦，送外国客户非常体面。",
+        "createdAt": "2026-02-20"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "手工编织挂毯",
+    "description": "纯棉线手工编织，几何图案设计，可做墙面装饰或桌旗。每件耗时约15小时完成。",
+    "price": 299,
+    "originalPrice": 399,
+    "category": "编织",
+    "categoryId": 3,
+    "icon": "🧺",
+    "creatorId": 2,
+    "creatorName": "织梦人",
+    "salesCount": 198,
+    "status": "approved",
+    "createdAt": "2025-11-15",
+    "stock": 20,
+    "tags": [
+      "编织",
+      "挂毯",
+      "家居",
+      "几何"
+    ],
+    "images": [
+      "https://picsum.photos/seed/weave1/600/600",
+      "https://picsum.photos/seed/weave2/600/600",
+      "https://picsum.photos/seed/weave3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 3,
+        "userId": 101,
+        "userName": "小窝生活",
+        "rating": 5,
+        "content": "挂在家里客厅，朋友们都问哪里买的。",
+        "createdAt": "2026-02-10"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "十二生肖剪纸相框",
+    "description": "非遗传承人手工剪制，十二生肖主题，装裱在实木相框中。送礼自用两相宜。",
+    "price": 128,
+    "originalPrice": 168,
+    "category": "剪纸",
+    "categoryId": 4,
+    "icon": "✂️",
+    "creatorId": 3,
+    "creatorName": "纸间艺术",
+    "salesCount": 512,
+    "status": "approved",
+    "createdAt": "2025-10-20",
+    "stock": 100,
+    "tags": [
+      "剪纸",
+      "非遗",
+      "生肖",
+      "相框"
+    ],
+    "images": [
+      "https://picsum.photos/seed/papercut1/600/600",
+      "https://picsum.photos/seed/papercut2/600/600",
+      "https://picsum.photos/seed/papercut3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 4,
+        "userId": 102,
+        "userName": "文化爱好者",
+        "rating": 5,
+        "content": "非常精美，送外国朋友很有面子。",
+        "createdAt": "2026-01-20"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "黑胡桃木蓝牙音箱",
+    "description": "北美黑胡桃木手工打造，内置高品质蓝牙5.0模块，续航8小时。木纹独一无二。",
+    "price": 399,
+    "originalPrice": 520,
+    "category": "木作",
+    "categoryId": 5,
+    "icon": "🪵",
+    "creatorId": 6,
+    "creatorName": "木说工作室",
+    "salesCount": 267,
+    "status": "approved",
+    "createdAt": "2025-10-10",
+    "stock": 10,
+    "tags": [
+      "木作",
+      "音箱",
+      "蓝牙",
+      "胡桃木"
+    ],
+    "images": [
+      "https://picsum.photos/seed/wood1/600/600",
+      "https://picsum.photos/seed/wood2/600/600",
+      "https://picsum.photos/seed/wood3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 5,
+        "userId": 106,
+        "userName": "数码控",
+        "rating": 4,
+        "content": "音质不错，关键是颜值高，放桌上就是艺术品。",
+        "createdAt": "2026-03-12"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "蓝染手工抱枕套",
+    "description": "采用传统蓝染工艺，纯棉面料手工扎染。每个抱枕纹样都是独一无二的。不含枕芯。",
+    "price": 138,
+    "originalPrice": 180,
+    "category": "布艺印染",
+    "categoryId": 6,
+    "icon": "🎨",
+    "creatorId": 7,
+    "creatorName": "草木染坊",
+    "salesCount": 634,
+    "status": "approved",
+    "createdAt": "2025-08-15",
+    "stock": 80,
+    "tags": [
+      "布艺",
+      "蓝染",
+      "抱枕",
+      "家居"
+    ],
+    "images": [
+      "https://picsum.photos/seed/fabric1/600/600",
+      "https://picsum.photos/seed/fabric2/600/600",
+      "https://picsum.photos/seed/fabric3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 6,
+        "userId": 107,
+        "userName": "家居控",
+        "rating": 5,
+        "content": "颜色太好看了，给沙发增加了艺术气息。",
+        "createdAt": "2026-02-14"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "天然石手工项链",
+    "description": "精选天然半宝石，手工绕线制作。每条项链独一无二，附赠绒布收纳袋。",
+    "price": 199,
+    "originalPrice": 280,
+    "category": "首饰",
+    "categoryId": 7,
+    "icon": "💎",
+    "creatorId": 5,
+    "creatorName": "瑾色手作",
+    "salesCount": 441,
+    "status": "approved",
+    "createdAt": "2025-11-01",
+    "stock": 15,
+    "tags": [
+      "首饰",
+      "手工",
+      "天然石",
+      "项链"
+    ],
+    "images": [
+      "https://picsum.photos/seed/jewelry1/600/600",
+      "https://picsum.photos/seed/jewelry2/600/600",
+      "https://picsum.photos/seed/jewelry3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 7,
+        "userId": 105,
+        "userName": "小仙女",
+        "rating": 5,
+        "content": "很好看！比照片还有质感，朋友生日准备再买一条。",
+        "createdAt": "2026-01-08"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "紫光檀木钢笔",
+    "description": "选用东非紫光檀木，手工车旋制作。搭配德国铱金笔尖，书写顺滑流畅。",
+    "price": 258,
+    "originalPrice": 350,
+    "category": "文房雅器",
+    "categoryId": 8,
+    "icon": "🖌️",
+    "creatorId": 4,
+    "creatorName": "墨林工坊",
+    "salesCount": 189,
+    "status": "approved",
+    "createdAt": "2025-12-20",
+    "stock": 30,
+    "tags": [
+      "钢笔",
+      "木制",
+      "手工",
+      "文房"
+    ],
+    "images": [
+      "https://picsum.photos/seed/pen1/600/600",
+      "https://picsum.photos/seed/pen2/600/600",
+      "https://picsum.photos/seed/pen3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 8,
+        "userId": 104,
+        "userName": "书法爱好者",
+        "rating": 5,
+        "content": "手感极佳，重量适中，长时间书写不累。",
+        "createdAt": "2026-02-28"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "大漆茶则·金缮",
+    "description": "脱胎漆器工艺，大漆髹涂，金缮点缀。茶道中的艺术品。",
+    "price": 580,
+    "originalPrice": 780,
+    "category": "漆器",
+    "categoryId": 9,
+    "icon": "🏮",
+    "creatorId": 9,
+    "creatorName": "大漆工房",
+    "salesCount": 87,
+    "status": "approved",
+    "createdAt": "2025-09-10",
+    "stock": 5,
+    "tags": [
+      "漆器",
+      "茶道",
+      "金缮",
+      "非遗"
+    ],
+    "images": [
+      "https://picsum.photos/seed/lacquer1/600/600",
+      "https://picsum.photos/seed/lacquer2/600/600",
+      "https://picsum.photos/seed/lacquer3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 9,
+        "userId": 111,
+        "userName": "茶道中人",
+        "rating": 5,
+        "content": "大漆的温润无可替代，爱不释手。",
+        "createdAt": "2026-03-01"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "手工锻打铜壶",
+    "description": "非遗铜器锻打工艺，一锤一锤敲出肌理。纯紫铜材质，煮水泡茶口感甘甜。",
+    "price": 680,
+    "originalPrice": 880,
+    "category": "金属工艺",
+    "categoryId": 10,
+    "icon": "🔨",
+    "creatorId": 10,
+    "creatorName": "铜艺斋",
+    "salesCount": 143,
+    "status": "approved",
+    "createdAt": "2025-07-20",
+    "stock": 8,
+    "tags": [
+      "金属工艺",
+      "铜器",
+      "茶器",
+      "非遗"
+    ],
+    "images": [
+      "https://picsum.photos/seed/metal1/600/600",
+      "https://picsum.photos/seed/metal2/600/600",
+      "https://picsum.photos/seed/metal3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 10,
+        "userId": 112,
+        "userName": "煮茶人",
+        "rating": 5,
+        "content": "铜壶煮水确实不一样，甘甜许多。",
+        "createdAt": "2026-01-10"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "植鞣牛皮托特包",
+    "description": "意大利植鞣牛皮，手工裁切缝制。会随使用时间养出独特色泽。",
+    "price": 599,
+    "originalPrice": 780,
+    "category": "皮艺",
+    "categoryId": 11,
+    "icon": "👜",
+    "creatorId": 11,
+    "creatorName": "素人手作",
+    "salesCount": 378,
+    "status": "approved",
+    "createdAt": "2025-10-05",
+    "stock": 25,
+    "tags": [
+      "皮艺",
+      "手工",
+      "托特包",
+      "植鞣"
+    ],
+    "images": [
+      "https://picsum.photos/seed/leather1/600/600",
+      "https://picsum.photos/seed/leather2/600/600",
+      "https://picsum.photos/seed/leather3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 11,
+        "userId": 113,
+        "userName": "极简控",
+        "rating": 5,
+        "content": "皮质很好，越用越有味道。",
+        "createdAt": "2026-02-05"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "水墨山水手卷",
+    "description": "青年画家原创水墨山水，宣纸手绘，可卷轴装裱。适合书房、茶室悬挂。",
+    "price": 320,
+    "originalPrice": 450,
+    "category": "绘画",
+    "categoryId": 12,
+    "icon": "🖼️",
+    "creatorId": 12,
+    "creatorName": "墨韵轩",
+    "salesCount": 156,
+    "status": "approved",
+    "createdAt": "2025-12-10",
+    "stock": 18,
+    "tags": [
+      "绘画",
+      "水墨",
+      "山水",
+      "国画"
+    ],
+    "images": [
+      "https://picsum.photos/seed/painting1/600/600",
+      "https://picsum.photos/seed/painting2/600/600",
+      "https://picsum.photos/seed/painting3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 12,
+        "userId": 114,
+        "userName": "文人墨客",
+        "rating": 5,
+        "content": "笔墨功底扎实，意境悠远。",
+        "createdAt": "2026-03-15"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "古镇晨雾·艺术微喷",
+    "description": "摄影师原创作品，记录江南古镇清晨。博物馆级艺术微喷，可定制尺寸和装裱。",
+    "price": 199,
+    "originalPrice": 280,
+    "category": "摄影",
+    "categoryId": 13,
+    "icon": "📷",
+    "creatorId": 13,
+    "creatorName": "光影行者",
+    "salesCount": 432,
+    "status": "approved",
+    "createdAt": "2025-11-25",
+    "stock": 50,
+    "tags": [
+      "摄影",
+      "风景",
+      "江南",
+      "装饰画"
+    ],
+    "images": [
+      "https://picsum.photos/seed/photo1/600/600",
+      "https://picsum.photos/seed/photo2/600/600",
+      "https://picsum.photos/seed/photo3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 13,
+        "userId": 115,
+        "userName": "旅行控",
+        "rating": 5,
+        "content": "拍出了江南的韵味，挂餐厅很美。",
+        "createdAt": "2026-04-01"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "泥塑生肖摆件·兔",
+    "description": "非遗泥塑工艺，手工捏制上色。造型憨态可掬，适合案头摆放。",
+    "price": 98,
+    "originalPrice": 138,
+    "category": "雕塑",
+    "categoryId": 14,
+    "icon": "🗿",
+    "creatorId": 14,
+    "creatorName": "泥人张传人",
+    "salesCount": 678,
+    "status": "approved",
+    "createdAt": "2025-08-01",
+    "stock": 120,
+    "tags": [
+      "雕塑",
+      "泥塑",
+      "生肖",
+      "非遗"
+    ],
+    "images": [
+      "https://picsum.photos/seed/sculpture1/600/600",
+      "https://picsum.photos/seed/sculpture2/600/600",
+      "https://picsum.photos/seed/sculpture3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 14,
+        "userId": 116,
+        "userName": "民俗迷",
+        "rating": 5,
+        "content": "传统手艺，做得真精致。",
+        "createdAt": "2026-01-25"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "非遗·皮影戏套装",
+    "description": "手工雕刻牛皮皮影，含经典角色6件+简易戏台。适合非遗体验、亲子互动。",
+    "price": 268,
+    "originalPrice": 360,
+    "category": "非遗传承",
+    "categoryId": 15,
+    "icon": "🏛️",
+    "creatorId": 15,
+    "creatorName": "皮影传承馆",
+    "salesCount": 234,
+    "status": "approved",
+    "createdAt": "2025-09-20",
+    "stock": 35,
+    "tags": [
+      "非遗",
+      "皮影",
+      "体验",
+      "亲子"
+    ],
+    "images": [
+      "https://picsum.photos/seed/heritage1/600/600",
+      "https://picsum.photos/seed/heritage2/600/600",
+      "https://picsum.photos/seed/heritage3/600/600"
+    ],
+    "reviews": [
+      {
+        "id": 15,
+        "userId": 117,
+        "userName": "带娃达人",
+        "rating": 5,
+        "content": "孩子玩得不想放下，了解传统文化的好方式。",
+        "createdAt": "2026-04-10"
+      }
+    ]
+  }
+]

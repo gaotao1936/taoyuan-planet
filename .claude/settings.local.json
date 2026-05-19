@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl *)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(rm -rf .next)",
+      "Read(//c/Users/86182/Desktop/桃园计划/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(python -c ' *)",
+      "Bash(node *)",
+      "Bash(npx next *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/community)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/admin)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/post-create)",
+      "Bash(npx vercel *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
