@@ -7,7 +7,7 @@ import { Order } from "@/lib/types";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { productId, quantity = 1, buyerName, buyerPhone, shippingAddress, paymentMethod = "epay", channel } = body;
+    const { productId, quantity = 1, buyerName, buyerPhone, shippingAddress, paymentMethod = "demo", channel } = body;
 
     if (!productId || !buyerPhone) {
       return NextResponse.json({ error: "缺少必填字段" }, { status: 400 });

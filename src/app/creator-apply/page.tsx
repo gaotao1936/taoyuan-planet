@@ -18,6 +18,7 @@ export default function CreatorApplyPage() {
   const [form, setForm] = useState({
     realName: '',
     phone: '',
+    idCard: '',
     fields: [] as string[],
     bio: '',
     portfolio: [] as string[],
@@ -107,6 +108,7 @@ export default function CreatorApplyPage() {
 
   const isValid = form.realName.length >= 2 && form.realName.length <= 20
     && /^1\d{10}$/.test(form.phone)
+    && /^\d{17}[\dXx]$/.test(form.idCard)
     && form.fields.length >= 1
     && form.bio.length >= 10 && form.bio.length <= 500
     && form.portfolio.length >= 1;
@@ -123,6 +125,7 @@ export default function CreatorApplyPage() {
           userId: user.id,
           phone: form.phone,
           realName: form.realName,
+          idCard: form.idCard,
           fields: form.fields,
           bio: form.bio,
           portfolio: form.portfolio,
@@ -294,6 +297,18 @@ export default function CreatorApplyPage() {
               />
             </div>
             <div>
+              <label className="block text-sm font-medium text-[#2C2C2C] mb-2">身份证号 <span className="text-red-400">*</span></label>
+              <input
+                type="text"
+                value={form.idCard}
+                onChange={e => setForm({ ...form, idCard: e.target.value.toUpperCase().replace(/[^\dX]/g, '').slice(0, 18) })}
+                placeholder="请输入18位身份证号"
+                maxLength={18}
+                className="w-full px-4 py-3 bg-[#FEF5EC] border border-black/5 rounded-xl text-sm focus:outline-none focus:border-[#E07B5A] transition-all"
+              />
+              <p className="text-xs text-[#bbb] mt-1">用于实名认证，信息加密存储，仅用于身份核实</p>
+            </div>
+            <div>
               <label className="block text-sm font-medium text-[#2C2C2C] mb-3">创作领域 <span className="text-red-400">*</span></label>
               <div className="flex gap-2 flex-wrap">
                 {creativeFields.map(field => (
@@ -387,6 +402,7 @@ export default function CreatorApplyPage() {
                 <p className="text-[#E07B5A] font-medium mb-1">请完善以下信息：</p>
                 {form.realName.length < 2 && <p>· 填写真实姓名（至少2字）</p>}
                 {!/^1\d{10}$/.test(form.phone) && <p>· 输入有效的11位手机号</p>}
+                {!/^\d{17}[\dXx]$/.test(form.idCard) && <p>· 输入有效的18位身份证号</p>}
                 {form.fields.length === 0 && <p>· 至少选择1个创作领域</p>}
                 {form.bio.length < 10 && <p>· 填写个人简介（至少10字，当前{form.bio.length}字）</p>}
                 {form.portfolio.length === 0 && <p>· 至少添加1张作品图片（点击下方 + 号添加）</p>}

@@ -23,6 +23,9 @@ export const mockCategories: Category[] = [
 
 export const mockProducts: Product[] = [
   {
+    id: 16, title: '桃园001', description: '桃园计划首发纪念款文创艺术品。融合传统中国水墨与现代极简设计，采用环保宣纸材质手工装裱，每幅作品独立编号。这不仅是一幅画作，更是一份对传统文化复兴的致敬。全球限量100幅，手写编号，附赠桃园官方收藏证书与独立编号卡。尺寸：50cm×50cm（含框）。', price: 0.01, originalPrice: 0.01, category: '绘画', categoryId: 12, icon: '🌸', creatorId: 0, creatorName: '桃园官方', salesCount: 0, status: 'approved', createdAt: '2026-05-20', stock: 100, tags: ['首发', '纪念', '限量', '水墨', '官方', '收藏'], images: [img('taoyuan001a'), img('taoyuan001b'), img('taoyuan001c')], reviews: [],
+  },
+  {
     id: 1, title: '青花手绘茶杯', description: '景德镇手工拉坯，传统青花工艺绘制，每只杯子纹样略有不同，独一无二。胎体轻薄通透，适合冲泡绿茶、白茶。', price: 168, originalPrice: 220, category: '陶瓷', categoryId: 1, icon: '🏺', creatorId: 1, creatorName: '山月陶舍', salesCount: 326, status: 'approved', createdAt: '2025-12-01', stock: 50, tags: ['陶瓷', '手工', '青花', '茶具'], images: [img('ceramic1'), img('ceramic2'), img('ceramic3')], reviews: [{ id: 1, userId: 100, userName: '茶语人生', rating: 5, content: '非常精致，手感温润，喝茶的心情都变好了。', createdAt: '2026-01-15' }],
   },
   {
@@ -70,6 +73,7 @@ export const mockProducts: Product[] = [
 ];
 
 export const mockCreators: Creator[] = [
+  { id: 0, name: '桃园官方', avatar: img('avatar0'), level: '平台官方', bio: '桃园计划官方账号，首发纪念作品发行方。致力于推动中国传统手工艺的数字化传播与商业化探索。', fans: 0, productCount: 1, tags: ['官方', '首发', '纪念'] },
   { id: 1, name: '山月陶舍', avatar: img('avatar1'), level: '资深创作者', bio: '景德镇陶瓷世家第三代传人，专注手工生活陶器。', fans: 3580, productCount: 28, tags: ['陶瓷', '手工', '茶具'] },
   { id: 2, name: '织梦人', avatar: img('avatar2'), level: '认证创作者', bio: '用棉线编织温暖，一针一线都是故事。', fans: 2150, productCount: 15, tags: ['编织', '家居', '挂毯'] },
   { id: 3, name: '纸间艺术', avatar: img('avatar3'), level: '非遗传承人', bio: '从事剪纸艺术20年，致力于将传统剪纸融入现代生活。', fans: 12000, productCount: 42, tags: ['剪纸', '非遗', '装饰'] },

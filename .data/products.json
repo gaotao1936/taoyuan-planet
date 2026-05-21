@@ -1,5 +1,28 @@
 [
   {
+    "id": 16,
+    "title": "桃园001",
+    "description": "桃园计划首发纪念款文创艺术品。融合传统中国水墨与现代极简设计，采用环保宣纸材质手工装裱，每幅作品独立编号。这不仅是一幅画作，更是一份对传统文化复兴的致敬。全球限量100幅，手写编号，附赠桃园官方收藏证书与独立编号卡。尺寸：50cm×50cm（含框）。",
+    "price": 0.01,
+    "originalPrice": 0.01,
+    "category": "绘画",
+    "categoryId": 12,
+    "icon": "🌸",
+    "creatorId": 0,
+    "creatorName": "桃园官方",
+    "salesCount": 0,
+    "status": "approved",
+    "createdAt": "2026-05-20",
+    "stock": 100,
+    "tags": ["首发", "纪念", "限量", "水墨", "官方", "收藏"],
+    "images": [
+      "https://picsum.photos/seed/taoyuan001a/600/600",
+      "https://picsum.photos/seed/taoyuan001b/600/600",
+      "https://picsum.photos/seed/taoyuan001c/600/600"
+    ],
+    "reviews": []
+  },
+  {
     "id": 1,
     "title": "青花手绘茶杯",
     "description": "景德镇手工拉坯，传统青花工艺绘制，每只杯子纹样略有不同，独一无二。胎体轻薄通透，适合冲泡绿茶、白茶。",

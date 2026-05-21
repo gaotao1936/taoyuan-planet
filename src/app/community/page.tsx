@@ -10,7 +10,15 @@ const tabs = [
   { key: 'recommend', label: '推荐', icon: '✨' },
   { key: 'newest', label: '最新', icon: '🕐' },
   { key: 'hot', label: '热门', icon: '🔥' },
+  { key: 'mine', label: '我的', icon: '👤' },
 ];
+
+const getCurrentUserId = (): number | null => {
+  if (typeof window === 'undefined') return null;
+  const user = localStorage.getItem('taoyuan_user');
+  if (!user) return null;
+  try { return JSON.parse(user).id; } catch { return null; }
+};
 
 const hotTopics = [
   '非遗传承', '青花瓷', '手工皮具', '木雕艺术', '苏绣教程',
@@ -45,11 +53,14 @@ export default function CommunityPage() {
   };
 
   const sortedPosts = () => {
+    const userId = getCurrentUserId();
     switch (activeTab) {
       case 'newest':
         return [...posts].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       case 'hot':
         return [...posts].sort((a, b) => b.likes - a.likes);
+      case 'mine':
+        return userId ? posts.filter(p => p.userId === userId) : [];
       default:
         return posts;
     }
@@ -146,6 +157,18 @@ export default function CommunityPage() {
                 {displayPosts.map((post) => (
                   <PostCard key={post.id} post={post} onLike={handleLike} onCollect={handleCollect} />
                 ))}
+              </div>
+            ) : activeTab === 'mine' && !getCurrentUserId() ? (
+              <div className="text-center py-20 bg-white rounded-2xl border border-black/5">
+                <span className="text-5xl block mb-4">👤</span>
+                <p className="text-[#999] mb-4">请先登录后查看你的帖子</p>
+                <Link href="/login" className="inline-block px-6 py-2.5 bg-[#E07B5A] text-white rounded-full text-sm font-medium hover:bg-[#C56A4A] transition-colors">去登录</Link>
+              </div>
+            ) : activeTab === 'mine' ? (
+              <div className="text-center py-20 bg-white rounded-2xl border border-black/5">
+                <span className="text-5xl block mb-4">📝</span>
+                <p className="text-[#999] mb-4">你还没有发布任何帖子</p>
+                <Link href="/post-create" className="inline-block px-6 py-2.5 bg-[#E07B5A] text-white rounded-full text-sm font-medium hover:bg-[#C56A4A] transition-colors">发布第一条帖子</Link>
               </div>
             ) : (
               <div className="text-center py-20 bg-white rounded-2xl border border-black/5">

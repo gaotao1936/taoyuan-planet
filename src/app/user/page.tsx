@@ -11,6 +11,7 @@ interface UserProfile {
   phone: string;
   name: string;
   realName: string;
+  idCard: string;
   avatar: string;
   bio: string;
   role: 'user' | 'creator' | 'pending_creator';
@@ -29,7 +30,7 @@ export default function UserPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editForm, setEditForm] = useState({ name: '', realName: '', bio: '', gender: '', birthday: '', address: '', avatar: '' });
+  const [editForm, setEditForm] = useState({ name: '', realName: '', idCard: '', bio: '', gender: '', birthday: '', address: '', avatar: '' });
   const [saving, setSaving] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -45,6 +46,7 @@ export default function UserPage() {
       setEditForm({
         name: latest.name || '',
         realName: latest.realName || '',
+        idCard: latest.idCard || '',
         bio: latest.bio || '',
         gender: latest.gender || '',
         birthday: latest.birthday || '',
@@ -296,6 +298,17 @@ export default function UserPage() {
                       className="w-full px-3 py-2.5 bg-[#FEF5EC] border border-black/5 rounded-xl text-sm focus:outline-none focus:border-[#E07B5A] transition-all"
                     />
                   </div>
+                  <div>
+                    <label className="block text-xs font-medium text-[#2C2C2C] mb-1.5">身份证号</label>
+                    <input
+                      type="text"
+                      value={editForm.idCard}
+                      onChange={e => setEditForm({ ...editForm, idCard: e.target.value.toUpperCase().replace(/[^\dX]/g, '').slice(0, 18) })}
+                      placeholder="用于实名认证"
+                      maxLength={18}
+                      className="w-full px-3 py-2.5 bg-[#FEF5EC] border border-black/5 rounded-xl text-sm focus:outline-none focus:border-[#E07B5A] transition-all"
+                    />
+                  </div>
                   <button
                     onClick={handleSave}
                     disabled={saving}
@@ -431,7 +444,13 @@ export default function UserPage() {
             <div className="flex justify-between">
               <span className="text-[#999]">实名认证</span>
               <span className={user.realName ? 'text-green-600 font-medium' : 'text-[#999]'}>
-                {user.realName ? '已认证' : '未认证'}
+                {user.realName ? `已认证（${user.realName}）` : '未认证'}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-[#999]">身份证</span>
+              <span className="text-[#999]">
+                {user.idCard ? `${user.idCard.slice(0, 6)}****${user.idCard.slice(-4)}` : '未填写'}
               </span>
             </div>
             <div className="flex justify-between">

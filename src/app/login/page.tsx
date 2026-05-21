@@ -12,7 +12,9 @@ export default function LoginPage() {
   const [codeSent, setCodeSent] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [showHint, setShowHint] = useState(false);
+  const [sendingCode, setSendingCode] = useState(false);
+  const [demoCode, setDemoCode] = useState('');
+  const [msg, setMsg] = useState('');
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -29,19 +31,58 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     if (phone.length !== 11 || !/^1\d{10}$/.test(phone)) return;
-    setCodeSent(true);
-    setShowHint(true);
-    startCountdown();
-    // In production, this calls the SMS API
+    setSendingCode(true);
+    setMsg('');
+    try {
+      const res = await fetch('/api/sms/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCodeSent(true);
+        startCountdown();
+        setMsg(data.message);
+        if (data.demoCode) {
+          setDemoCode(data.demoCode);
+        }
+      } else {
+        setMsg(data.error || '发送失败');
+      }
+    } catch {
+      setMsg('网络错误，请重试');
+    } finally {
+      setSendingCode(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length !== 11 || code.length < 4) return;
     setLoading(true);
-    await new Promise(r => setTimeout(r, 800));
+    setMsg('');
+
+    // Verify code first
+    try {
+      const verifyRes = await fetch('/api/sms/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, code }),
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.valid) {
+        setMsg('验证码错误或已过期');
+        setLoading(false);
+        return;
+      }
+    } catch {
+      setMsg('验证失败，请重试');
+      setLoading(false);
+      return;
+    }
 
     // Check if admin login
     if (phone === '13800000000' && code === '888888') {
@@ -69,12 +110,12 @@ export default function LoginPage() {
     let user = users.find((u: { phone: string }) => u.phone === phone);
 
     if (!user) {
-      // New user registration
       user = {
         id: Date.now(),
         phone,
         name: '',
         realName: '',
+        idCard: '',
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${phone}`,
         bio: '',
         role: 'user',
@@ -100,7 +141,6 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-sm"
       >
-        {/* Logo */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
             <div className="w-14 h-14 bg-gradient-to-br from-[#E07B5A] to-[#C9A96E] rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-[#E07B5A]/20"
@@ -114,9 +154,7 @@ export default function LoginPage() {
           <p className="text-[#999] mt-2 text-sm">手机号注册登录，开启你的文创之旅</p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 border border-black/5 space-y-5">
-          {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-[#2C2C2C] mb-2">手机号</label>
             <input
@@ -125,7 +163,7 @@ export default function LoginPage() {
               onChange={e => {
                 const v = e.target.value.replace(/\D/g, '').slice(0, 11);
                 setPhone(v);
-                if (codeSent) { setCodeSent(false); setShowHint(false); }
+                if (codeSent) { setCodeSent(false); setDemoCode(''); setMsg(''); }
               }}
               placeholder="请输入11位手机号"
               maxLength={11}
@@ -133,7 +171,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Verification code */}
           <div>
             <label className="block text-sm font-medium text-[#2C2C2C] mb-2">验证码</label>
             <div className="flex gap-3">
@@ -148,16 +185,20 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={handleSendCode}
-                disabled={!phoneValid || countdown > 0}
+                disabled={!phoneValid || countdown > 0 || sendingCode}
                 className="px-4 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all disabled:opacity-40
                   bg-[#E07B5A] text-white hover:bg-[#C56A4A] disabled:bg-[#ddd] disabled:text-[#999]"
               >
-                {countdown > 0 ? `${countdown}s` : codeSent ? '重新发送' : '获取验证码'}
+                {sendingCode ? (
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  </span>
+                ) : countdown > 0 ? `${countdown}s` : codeSent ? '重新发送' : '获取验证码'}
               </button>
             </div>
-            {showHint && (
-              <p className="text-xs text-[#E07B5A] mt-2">
-                演示环境，测试验证码：1234
+            {msg && (
+              <p className={`text-xs mt-2 ${msg.includes('失败') || msg.includes('错误') ? 'text-red-500' : 'text-[#E07B5A]'}`}>
+                {msg}{demoCode && !msg.includes('失败') ? `（演示验证码：${demoCode}）` : ''}
               </p>
             )}
           </div>

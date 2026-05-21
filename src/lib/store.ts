@@ -149,6 +149,7 @@ export interface CreatorApplication {
   userId: number;
   realName: string;
   phone: string;
+  idCard: string;
   fields: string[];
   bio: string;
   portfolio: string[];
@@ -166,6 +167,31 @@ export function updateApplication(id: number, data: Partial<CreatorApplication>)
   const items = getApplications(); const idx = items.findIndex(a => a.id === id);
   if (idx === -1) return null;
   items[idx] = { ...items[idx], ...data }; writeJSON('applications.json', items); return items[idx];
+}
+
+// ─── SMS Codes ───
+interface SmsCodeEntry {
+  phone: string;
+  code: string;
+  expiresAt: number;
+}
+export function saveSmsCode(phone: string, code: string) {
+  const codes = readJSON<SmsCodeEntry[]>('sms_codes.json', []);
+  // Remove expired entries
+  const now = Date.now();
+  const valid = codes.filter(c => c.expiresAt > now);
+  valid.push({ phone, code, expiresAt: now + 5 * 60 * 1000 });
+  writeJSON('sms_codes.json', valid);
+}
+export function verifySmsCode(phone: string, code: string): boolean {
+  const codes = readJSON<SmsCodeEntry[]>('sms_codes.json', []);
+  const now = Date.now();
+  const match = codes.find(c => c.phone === phone && c.code === code && c.expiresAt > now);
+  // Clean expired
+  if (codes.some(c => c.expiresAt <= now)) {
+    writeJSON('sms_codes.json', codes.filter(c => c.expiresAt > now));
+  }
+  return !!match;
 }
 
 // ─── Init seed data ───
