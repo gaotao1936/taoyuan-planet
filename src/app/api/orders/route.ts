@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOrders, createOrder } from '@/lib/store';
+import { getOrders, getOrdersByCreator, createOrder } from '@/lib/store';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status');
+  const creatorId = searchParams.get('creatorId');
   const page = parseInt(searchParams.get('page') || '1');
   const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
-  let orders = getOrders();
+  let orders = creatorId
+    ? getOrdersByCreator(parseInt(creatorId))
+    : getOrders();
 
   if (status) {
     const statusMap: Record<string, string> = {

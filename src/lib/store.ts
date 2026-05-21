@@ -137,6 +137,25 @@ export function markOrderPaid(orderNo: string, transactionId: string): Order | n
   writeJSON('orders.json', items);
   return items[idx];
 }
+export function markOrderSettled(id: string, note?: string): Order | null {
+  const items = getOrders(); const idx = items.findIndex(o => o.id === id || o.orderNo === id);
+  if (idx === -1) return null;
+  items[idx].settlementStatus = '已结算';
+  items[idx].settledAt = new Date().toISOString();
+  if (note) items[idx].settlementNote = note;
+  writeJSON('orders.json', items);
+  return items[idx];
+}
+export function getOrdersByCreator(creatorId: number): Order[] {
+  return getOrders().filter(o => {
+    // Orders where the product belongs to this creator
+    return o.items.some(item => {
+      const products = getProducts();
+      const product = products.find(p => p.id === item.productId);
+      return product && product.creatorId === creatorId;
+    });
+  });
+}
 
 // ─── Users ───
 export function getUsers(): User[] {

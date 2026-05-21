@@ -32,9 +32,13 @@ interface StudioOrder {
   buyerName: string;
   buyerPhone: string;
   shippingAddress: string;
+  commissionRate?: number;
+  creatorAmount?: number;
+  settlementStatus?: string;
+  settledAt?: string;
 }
 
-const tabs = ['作品管理', '订单管理', '数据概览', '设置'];
+const tabs = ['作品管理', '订单管理', '收益结算', '数据概览', '设置'];
 const categories = ['陶瓷', '刺绣', '编织', '剪纸', '木作', '布艺印染', '首饰', '文房雅器', '漆器', '金属工艺', '皮艺', '绘画', '摄影', '雕塑', '非遗传承', '其他'];
 
 export default function CreatorStudioPage() {
@@ -44,6 +48,7 @@ export default function CreatorStudioPage() {
   const [user, setUser] = useState<any>(null);
   const [products, setProducts] = useState<StudioProduct[]>([]);
   const [orders, setOrders] = useState<StudioOrder[]>([]);
+  const [earningsOrders, setEarningsOrders] = useState<StudioOrder[]>([]);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [studioName, setStudioName] = useState('');
   const [studioBio, setStudioBio] = useState('');
@@ -95,6 +100,14 @@ export default function CreatorStudioPage() {
     };
     init();
   }, []);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    fetch(`/api/orders?creatorId=${user.id}&pageSize=9999`)
+      .then(res => res.json())
+      .then(data => setEarningsOrders(data.items || []))
+      .catch(() => {});
+  }, [user?.id]);
 
   const loadProducts = async (creatorId?: number) => {
     const id = creatorId || user?.id;
@@ -206,10 +219,13 @@ export default function CreatorStudioPage() {
     );
   }
 
-  const totalRevenue = orders
-    .filter(o => o.status === '已完成')
-    .reduce((sum, o) => sum + o.totalAmount, 0);
-  const pendingOrders = orders.filter(o => o.status === '待发货').length;
+  const totalRevenue = earningsOrders
+    .filter(o => o.status === '已完成' || o.status === '待收货')
+    .reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0);
+  const pendingSettlement = earningsOrders
+    .filter(o => (o.status === '待发货' || o.status === '已完成' || o.status === '待收货') && o.settlementStatus !== '已结算')
+    .reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0);
+  const pendingShipOrders = orders.filter(o => o.status === '待发货').length;
 
   return (
     <div className="min-h-screen bg-[#FEF5EC]">
@@ -226,11 +242,12 @@ export default function CreatorStudioPage() {
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           {[
             { label: '作品数', value: products.length, icon: '📦', color: 'from-[#E07B5A] to-[#F0A88C]' },
-            { label: '待发货', value: pendingOrders, icon: '📋', color: 'from-[#C9A96E] to-[#DBC89E]' },
-            { label: '总收入', value: `¥${totalRevenue.toLocaleString()}`, icon: '💰', color: 'from-[#2D6A6A] to-[#4A9A9A]' },
+            { label: '待发货', value: pendingShipOrders, icon: '📋', color: 'from-[#C9A96E] to-[#DBC89E]' },
+            { label: '待结算', value: `¥${pendingSettlement.toFixed(2)}`, icon: '⏳', color: 'from-[#E07B5A] to-[#F0A88C]' },
+            { label: '总收益', value: `¥${totalRevenue.toLocaleString()}`, icon: '💰', color: 'from-[#2D6A6A] to-[#4A9A9A]' },
             { label: '粉丝数', value: '0', icon: '❤️', color: 'from-[#6366f1] to-[#818cf8]' },
           ].map(stat => (
             <motion.div
@@ -447,6 +464,92 @@ export default function CreatorStudioPage() {
                         确认发货
                       </button>
                     )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Earnings Settlement */}
+        {activeTab === '收益结算' && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-[#E07B5A]">
+                  ¥{earningsOrders
+                    .filter(o => (o.status === '待发货' || o.status === '已完成' || o.status === '待收货') && o.settlementStatus !== '已结算')
+                    .reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0)
+                    .toFixed(2)}
+                </div>
+                <div className="text-xs text-[#999] mt-1">待结算收益</div>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-green-600">
+                  ¥{earningsOrders
+                    .filter(o => o.settlementStatus === '已结算')
+                    .reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0)
+                    .toFixed(2)}
+                </div>
+                <div className="text-xs text-[#999] mt-1">已结算收益</div>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-[#2C2C2C]">
+                  {earningsOrders.filter(o => (o.status === '待发货' || o.status === '已完成' || o.status === '待收货') && o.settlementStatus !== '已结算').length}
+                </div>
+                <div className="text-xs text-[#999] mt-1">待结算笔数</div>
+              </div>
+            </div>
+            {earningsOrders.length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-2xl text-[#999]">
+                <span className="text-4xl block mb-3">💰</span>
+                <p>暂无收益记录</p>
+                <p className="text-xs mt-1">订单完成发货后将出现在这里</p>
+              </div>
+            ) : (
+              earningsOrders.map(order => (
+                <div key={order.id} className="bg-white rounded-2xl p-5 border border-black/5">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <span className="text-sm font-mono text-[#999]">{order.orderNo}</span>
+                      <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+                        order.status === '已完成' ? 'bg-green-50 text-green-700' :
+                        order.status === '已取消' ? 'bg-gray-100 text-gray-500' :
+                        'bg-blue-50 text-blue-700'
+                      }`}>{order.status}</span>
+                      {order.settlementStatus === '已结算' && (
+                        <span className="ml-2 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+                          已结算 {order.settledAt?.slice(0, 10)}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-[#999]">{order.createTime?.slice(0, 10)}</span>
+                  </div>
+                  {order.items.map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm mb-2">
+                      <img src={item.image} alt="" className="w-10 h-10 rounded-lg object-cover bg-[#FEF5EC]" />
+                      <span className="text-[#2C2C2C] flex-1">{item.productName}</span>
+                      <span className="text-[#999]">×{item.quantity}</span>
+                      <span className="text-[#E07B5A] font-medium">¥{item.price}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center border-t border-black/3 pt-3 mt-2">
+                    <div className="text-sm">
+                      <span className="text-[#999]">实付 ¥{order.totalAmount}</span>
+                      {order.creatorAmount !== undefined && order.creatorAmount !== order.totalAmount && (
+                        <>
+                          <span className="text-[#999]"> · 你的收益 </span>
+                          <span className="text-[#E07B5A] font-medium">¥{order.creatorAmount}</span>
+                        </>
+                      )}
+                    </div>
+                    <span className={`text-xs px-2.5 py-1 rounded-full ${
+                      order.settlementStatus === '已结算'
+                        ? 'bg-green-50 text-green-600'
+                        : 'bg-amber-50 text-amber-600'
+                    }`}>
+                      {order.settlementStatus === '已结算' ? '已结算' : '待结算'}
+                    </span>
                   </div>
                 </div>
               ))

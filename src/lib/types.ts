@@ -85,6 +85,10 @@ export interface Order {
   commissionRate?: number;
   /** Creator's net earnings after commission */
   creatorAmount?: number;
+  /** Settlement tracking */
+  settlementStatus?: '待结算' | '已结算';
+  settledAt?: string;
+  settlementNote?: string;
 }
 
 export interface OrderItem {

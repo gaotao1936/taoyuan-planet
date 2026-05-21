@@ -52,7 +52,20 @@ interface AdminPost {
   createdAt: string;
 }
 
-const adminTabs = ['创作者审核', '作品审核', '内容管理', '系统概览'];
+interface AdminOrder {
+  id: string;
+  orderNo: string;
+  createTime: string;
+  status: string;
+  items: { productId: number; productName: string; price: number; quantity: number; image: string }[];
+  totalAmount: number;
+  buyerName: string;
+  commissionRate?: number;
+  creatorAmount?: number;
+  settlementStatus?: string;
+}
+
+const adminTabs = ['创作者审核', '作品审核', '内容管理', '结算管理', '系统概览'];
 
 export default function AdminPage() {
   const router = useRouter();
@@ -65,6 +78,7 @@ export default function AdminPage() {
   const [products, setProducts] = useState<AdminProduct[]>([]);
   const [posts, setPosts] = useState<AdminPost[]>([]);
   const [users, setUsers] = useState<AdminUser[]>([]);
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -81,21 +95,24 @@ export default function AdminPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [appRes, prodRes, postRes, userRes] = await Promise.all([
+      const [appRes, prodRes, postRes, userRes, orderRes] = await Promise.all([
         fetch('/api/creators/apply'),
         fetch('/api/products?pageSize=9999'),
         fetch('/api/posts?pageSize=9999'),
         fetch('/api/users/profile'),
+        fetch('/api/orders?pageSize=9999'),
       ]);
       const appsData = await appRes.json();
       const prodData = await prodRes.json();
       const postData = await postRes.json();
       const userData = await userRes.json();
+      const orderData = await orderRes.json();
 
       setApplications(Array.isArray(appsData) ? appsData : appsData.applications || []);
       setProducts(prodData.items || []);
       setPosts(postData.items || []);
       setUsers(Array.isArray(userData) ? userData : []);
+      setOrders(orderData.items || []);
     } catch (err) {
       console.error('[Admin] 数据加载失败:', err);
     } finally {
@@ -394,6 +411,74 @@ export default function AdminPage() {
                     <span className="text-xs text-[#999]">{post.likes} 赞 · {post.comments?.length || 0} 评论</span>
                     <button onClick={() => deletePost(post.id)}
                       className="text-xs text-red-500 hover:underline">删除帖子</button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Settlement Management */}
+        {!loading && activeTab === '结算管理' && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-[#E07B5A]">¥{orders.filter(o => o.status === '待发货' || o.status === '已完成').reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0).toFixed(2)}</div>
+                <div className="text-xs text-[#999] mt-1">创作者待结算</div>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-green-600">¥{orders.filter(o => o.settlementStatus === '已结算').reduce((sum, o) => sum + (o.creatorAmount || o.totalAmount), 0).toFixed(2)}</div>
+                <div className="text-xs text-[#999] mt-1">已结算金额</div>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-black/5 text-center">
+                <div className="text-2xl font-bold text-[#2C2C2C]">{orders.filter(o => (o.status === '待发货' || o.status === '已完成') && o.settlementStatus !== '已结算').length}</div>
+                <div className="text-xs text-[#999] mt-1">待结算笔数</div>
+              </div>
+            </div>
+            {orders.filter(o => o.status === '待发货' || o.status === '已完成').length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-2xl text-[#999]">暂无待结算订单</div>
+            ) : (
+              orders.filter(o => o.status === '待发货' || o.status === '已完成').map(order => (
+                <div key={order.id} className="bg-white rounded-2xl p-5 border border-black/5">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <span className="text-sm font-mono text-[#999]">{order.orderNo}</span>
+                      <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${order.status === '已完成' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'}`}>{order.status}</span>
+                      {order.settlementStatus === '已结算' && (
+                        <span className="ml-2 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">已结算</span>
+                      )}
+                    </div>
+                    <span className="text-xs text-[#999]">{order.createTime?.slice(0, 10)}</span>
+                  </div>
+                  {order.items.map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm mb-2">
+                      <span className="text-[#2C2C2C]">{item.productName}</span>
+                      <span className="text-[#999]">×{item.quantity}</span>
+                      <span className="text-[#E07B5A] font-medium">¥{item.price}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center border-t border-black/3 pt-3 mt-2">
+                    <div className="text-sm">
+                      <span className="text-[#999]">实付 ¥{order.totalAmount} · 创作者分成 </span>
+                      <span className="text-[#E07B5A] font-medium">¥{order.creatorAmount || order.totalAmount}</span>
+                    </div>
+                    {order.settlementStatus !== '已结算' ? (
+                      <button
+                        onClick={async () => {
+                          await fetch(`/api/orders/${order.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'settle' }),
+                          });
+                          loadData();
+                        }}
+                        className="px-4 py-2 bg-[#E07B5A] text-white text-xs font-medium rounded-full hover:bg-[#C56A4A] transition-colors"
+                      >
+                        标记已结算
+                      </button>
+                    ) : (
+                      <span className="text-xs text-green-600">✓ 已结算</span>
+                    )}
                   </div>
                 </div>
               ))
