@@ -2,18 +2,44 @@ import fs from 'fs';
 import path from 'path';
 import { Product, Post, Order, User, Creator, PostComment } from './types';
 
-const DATA_DIR = path.join(process.cwd(), '.data');
+const PROJ_DIR = path.join(process.cwd(), '.data');
+// Vercel serverless: process.cwd() is read-only, /tmp/ is writable
+const TMP_DIR = '/tmp/.data';
+const isVercel = !!process.env.VERCEL;
+const DATA_DIR = isVercel ? TMP_DIR : PROJ_DIR;
 
 function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  const dir = isVercel ? TMP_DIR : PROJ_DIR;
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  // On Vercel, copy seed files from project to /tmp on first access
+  if (isVercel && !fs.existsSync(path.join(TMP_DIR, '_init'))) {
+    if (fs.existsSync(PROJ_DIR)) {
+      const files = fs.readdirSync(PROJ_DIR);
+      for (const file of files) {
+        if (file.endsWith('.json') && !fs.existsSync(path.join(TMP_DIR, file))) {
+          fs.writeFileSync(path.join(TMP_DIR, file), fs.readFileSync(path.join(PROJ_DIR, file)));
+        }
+      }
+    }
+    fs.writeFileSync(path.join(TMP_DIR, '_init'), '1');
+  }
 }
 
 function readJSON<T>(file: string, fallback: T): T {
   try {
     ensureDir();
-    const p = path.join(DATA_DIR, file);
-    if (!fs.existsSync(p)) return fallback;
-    return JSON.parse(fs.readFileSync(p, 'utf-8'));
+    // Try write dir first (may have updated data), then project dir for seed
+    const writePath = path.join(DATA_DIR, file);
+    if (fs.existsSync(writePath)) {
+      return JSON.parse(fs.readFileSync(writePath, 'utf-8'));
+    }
+    if (isVercel) {
+      const seedPath = path.join(PROJ_DIR, file);
+      if (fs.existsSync(seedPath)) {
+        return JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+      }
+    }
+    return fallback;
   } catch { return fallback; }
 }
 
