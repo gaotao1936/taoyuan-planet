@@ -167,12 +167,12 @@ function CheckoutForm() {
           <h3 className="font-semibold text-[#2C2C2C] text-sm mb-4">支付方式</h3>
           <div className="space-y-3">
             {[
-              { id: 'alipay', name: '支付宝', icon: '💙', desc: '推荐使用' },
-              { id: 'wxpay', name: '微信支付', icon: '💚', desc: '微信扫码支付' },
+              { id: 'alipay', name: '支付宝', icon: '💙', desc: '跳转支付宝完成支付' },
+              { id: 'wxpay', name: '微信支付', icon: '💚', desc: '即将支持' },
             ].map(item => (
               <button
                 key={item.id}
-                onClick={() => setChannel(item.id)}
+                onClick={() => item.id === 'alipay' && setChannel(item.id)}
                 className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                   channel === item.id
                     ? 'border-[#E07B5A] bg-[#E07B5A]/5'
